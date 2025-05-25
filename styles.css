@@ -37,8 +37,32 @@ p {
   cursor: pointer;
 }
 
+#click-counter {  
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#reset-counter {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 #theme-toggle:hover {
   background-color: #0056b3;
+}
+
+#click-counter:hover {
+  background-color: #0056b3;
+}
+
+#reset-counter:hover {
+  background-color: #c82333;
 }
 
 body.dark-mode #theme-toggle {
@@ -47,4 +71,32 @@ body.dark-mode #theme-toggle {
 
 body.dark-mode #theme-toggle:hover {
   background-color: #1e7e34;
+}
+
+body.dark-mode #click-counter {
+  background-color: #17a2b8;
+}
+
+body.dark-mode #click-counter:hover {
+  background-color: #138496;
+}
+
+body.dark-mode #reset-counter {
+  background-color: #fd7e14;
+}
+
+body.dark-mode #reset-counter:hover {
+  background-color: #e96500;
+}
+
+/* Center the counter section */
+div {
+  text-align: center;
+  margin-top: 2em;
+}
+
+/* Style the counter buttons */
+#click-counter, #reset-counter {
+  margin: 0.5em;
+  padding: 0.5em 1em;
 }
