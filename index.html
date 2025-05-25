@@ -6,8 +6,18 @@
   <title>Jeff Koretke</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <h1>Welcome to my website!</h1>
+<body>  <h1>Welcome to my website!</h1>
   <p>Hello, I'm Jeff, an Android developer learning web development.</p>
+  <p>Touch my poop</p>
+  <p>(Spam this button to have a seziure)</p>
+
+  <button id="theme-toggle">Toggle Dark Mode</button>
+
+  <script>
+    const btn = document.getElementById('theme-toggle');
+    btn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+    });
+  </script>
 </body>
 </html>

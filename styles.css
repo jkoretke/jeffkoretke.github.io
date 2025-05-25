@@ -1,5 +1,6 @@
 /* styles.css */
 
+/* Default (light mode) */
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
@@ -7,6 +8,12 @@ body {
   padding: 0;
   background-color: #f4f4f4;
   color: #333;
+}
+
+/* Dark mode */
+body.dark-mode {
+  background-color: #222;
+  color: #eee;
 }
 
 h1 {
@@ -17,4 +24,27 @@ h1 {
 p {
   text-align: center;
   margin: 1rem;
+}
+
+#theme-toggle {
+  display: block;
+  margin: 2rem auto;
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#theme-toggle:hover {
+  background-color: #0056b3;
+}
+
+body.dark-mode #theme-toggle {
+  background-color: #28a745;
+}
+
+body.dark-mode #theme-toggle:hover {
+  background-color: #1e7e34;
 }
