@@ -9,8 +9,13 @@
 <body>  <h1>Welcome to my website!</h1>
   <p>Hello, I'm Jeff, an Android developer learning web development.</p>
   <p>Touch my poop</p>
-  <p>(Spam this button to have a seziure)</p>
-  <button id="theme-toggle">Toggle Dark Mode</button>
+  <p>(Spam this button to have a seziure)</p>  <button id="theme-toggle">Toggle Dark Mode</button>
+  
+  <div>
+    <h2>Random Cat Fact</h2>
+    <p id="cat-fact">Loading...</p>
+    <button id="fetch-fact">Get New Fact</button>
+  </div>
   
   <div>
     <p>Button clicks: <span id="click-count">0</span></p>
@@ -34,12 +39,29 @@
     clickButton.addEventListener('click', () => {
       clickCount++;
       countDisplay.textContent = clickCount;
-    });
-
-    resetButton.addEventListener('click', () => {
+    });    resetButton.addEventListener('click', () => {
       clickCount = 0;
       countDisplay.textContent = clickCount;
     });
+
+    // API fetch example
+    const factDisplay = document.getElementById('cat-fact');
+    const fetchButton = document.getElementById('fetch-fact');
+
+    async function fetchCatFact() {
+      try {
+        const response = await fetch('https://catfact.ninja/fact');
+        const data = await response.json();
+        factDisplay.textContent = data.fact;
+      } catch (error) {
+        factDisplay.textContent = 'Failed to load fact';
+      }
+    }
+
+    fetchButton.addEventListener('click', fetchCatFact);
+    
+    // Load initial fact
+    fetchCatFact();
   </script>
 </body>
 </html>
