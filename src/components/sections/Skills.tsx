@@ -26,12 +26,10 @@ export function Skills() {
   const { data, isLoading } = useSkills()
   const [activeCategory, setActiveCategory] = useState<SkillCategory | 'all'>('all')
 
-  const categories = data?.groupedByCategory
-    ? (Object.keys(data.groupedByCategory) as SkillCategory[])
-    : []
+  const categories = data?.categories || []
 
   const displayedSkills = activeCategory === 'all'
-    ? data?.data || []
+    ? data?.allSkills || []
     : data?.groupedByCategory?.[activeCategory] || []
 
   return (
@@ -62,7 +60,7 @@ export function Skills() {
                 active={activeCategory === category}
                 onClick={() => setActiveCategory(category)}
               >
-                {CATEGORY_LABELS[category]}
+                {CATEGORY_LABELS[category] || category}
               </CategoryTab>
             ))}
           </div>
@@ -79,7 +77,7 @@ export function Skills() {
             <AnimatePresence mode="popLayout">
               {displayedSkills.map((skill, index) => (
                 <motion.div
-                  key={skill._id}
+                  key={skill._id || `${skill.name}-${index}`}
                   layout
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -93,7 +91,7 @@ export function Skills() {
                   </h3>
                   <div className="flex items-center justify-between">
                     <span
-                      className={`text-xs px-2 py-1 rounded-full ${PROFICIENCY_STYLES[skill.proficiency].bg} ${PROFICIENCY_STYLES[skill.proficiency].text}`}
+                      className={`text-xs px-2 py-1 rounded-full ${PROFICIENCY_STYLES[skill.proficiency]?.bg || ''} ${PROFICIENCY_STYLES[skill.proficiency]?.text || ''}`}
                     >
                       {skill.proficiency}
                     </span>
