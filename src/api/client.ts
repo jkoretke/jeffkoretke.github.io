@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // Use production API (change to localhost:3000 if running backend locally)
-const API_BASE_URL = 'https://jeffkoretke.com/api'
+const API_BASE_URL = 'https://api.jeffkoretke.com/api'
 
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
