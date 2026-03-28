@@ -21,10 +21,12 @@ const queryClient = new QueryClient({
 export default function App() {
   useEffect(() => {
     const { hash } = window.location
-    if (hash) {
+    if (!hash) return
+    const timer = setTimeout(() => {
       const el = document.querySelector(hash)
       if (el) el.scrollIntoView({ behavior: 'smooth' })
-    }
+    }, 800)
+    return () => clearTimeout(timer)
   }, [])
 
   return (
