@@ -45,6 +45,16 @@ export type SkillCategory =
   | 'platforms'
   | 'databases'
 
+export interface BlogPost {
+  _id: string
+  title: string
+  slug: string
+  excerpt: string
+  content?: string
+  tags: string[]
+  publishedAt: string
+}
+
 export interface ContactRequest {
   name: string
   email: string

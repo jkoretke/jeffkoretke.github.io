@@ -5,6 +5,7 @@ import { Hero } from '@/components/sections/Hero'
 import { About } from '@/components/sections/About'
 import { Skills } from '@/components/sections/Skills'
 import { Experience } from '@/components/sections/Experience'
+import { Blog } from '@/components/sections/Blog'
 import { Contact } from '@/components/sections/Contact'
 
 const queryClient = new QueryClient({
@@ -26,6 +27,7 @@ export default function App() {
           <About />
           <Skills />
           <Experience />
+          <Blog />
           <Contact />
         </main>
         <Footer />
