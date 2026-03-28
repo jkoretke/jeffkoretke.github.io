@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
@@ -8,6 +9,7 @@ import { Skills } from '@/components/sections/Skills'
 import { Experience } from '@/components/sections/Experience'
 import { Blog } from '@/components/sections/Blog'
 import { Contact } from '@/components/sections/Contact'
+import { BlogPostPage } from '@/pages/BlogPostPage'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,7 +20,7 @@ const queryClient = new QueryClient({
   },
 })
 
-export default function App() {
+function HomePage() {
   useEffect(() => {
     const { hash } = window.location
     if (!hash) return
@@ -30,19 +32,30 @@ export default function App() {
   }, [])
 
   return (
+    <main className="flex-grow">
+      <Hero />
+      <About />
+      <Skills />
+      <Experience />
+      <Blog />
+      <Contact />
+    </main>
+  )
+}
+
+export default function App() {
+  return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-grow">
-          <Hero />
-          <About />
-          <Skills />
-          <Experience />
-          <Blog />
-          <Contact />
-        </main>
-        <Footer />
-      </div>
+      <BrowserRouter>
+        <div className="min-h-screen flex flex-col">
+          <Header />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/blog/:slug" element={<BlogPostPage />} />
+          </Routes>
+          <Footer />
+        </div>
+      </BrowserRouter>
     </QueryClientProvider>
   )
 }
