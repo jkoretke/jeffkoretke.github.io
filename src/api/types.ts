@@ -35,6 +35,7 @@ export interface Skill {
 }
 
 export type SkillCategory =
+  | 'ai'
   | 'languages'
   | 'mobile'
   | 'backend'

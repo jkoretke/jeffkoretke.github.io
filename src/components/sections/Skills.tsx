@@ -5,6 +5,7 @@ import { FadeInSection } from '../animations/FadeInSection'
 import type { SkillCategory } from '@/api/types'
 
 const CATEGORY_LABELS: Record<SkillCategory, string> = {
+  ai: 'AI & Agentic',
   languages: 'Languages',
   mobile: 'Mobile',
   backend: 'Backend',
