@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { HelmetProvider, Helmet } from 'react-helmet-async'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { Hero } from '@/components/sections/Hero'
@@ -33,6 +34,10 @@ function HomePage() {
 
   return (
     <main className="flex-grow">
+      <Helmet>
+        <title>Jeff Koretke | Software Engineer</title>
+        <meta name="description" content="Software engineer specializing in Android development, AI workflows, and building things efficiently." />
+      </Helmet>
       <Hero />
       <About />
       <Skills />
@@ -45,6 +50,7 @@ function HomePage() {
 
 export default function App() {
   return (
+    <HelmetProvider>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <div className="min-h-screen flex flex-col">
@@ -57,5 +63,6 @@ export default function App() {
         </div>
       </BrowserRouter>
     </QueryClientProvider>
+    </HelmetProvider>
   )
 }

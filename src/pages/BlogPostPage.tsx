@@ -1,4 +1,5 @@
 import { useParams, Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Calendar, Tag, ArrowLeft } from 'lucide-react'
@@ -41,6 +42,10 @@ export function BlogPostPage() {
 
         {post && (
           <article>
+            <Helmet>
+              <title>{post.title} | Jeff Koretke</title>
+              <meta name="description" content={post.excerpt} />
+            </Helmet>
             <div className="flex flex-wrap gap-2 mb-4">
               {post.tags.map(tag => (
                 <span key={tag} className="flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400">
