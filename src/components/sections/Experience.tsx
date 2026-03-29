@@ -6,7 +6,7 @@ import { FadeInSection } from '../animations/FadeInSection'
 export function Experience() {
   const { data: about, isLoading } = useAbout()
 
-  if (isLoading || !about?.experience?.length) {
+  if (!isLoading && !about?.experience?.length) {
     return null
   }
 
@@ -21,60 +21,91 @@ export function Experience() {
         </FadeInSection>
 
         <div className="max-w-3xl mx-auto">
-          {/* Timeline */}
-          <div className="relative">
-            {/* Vertical line */}
-            <div className="absolute left-4 md:left-8 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-dark-border" />
+          {isLoading ? (
+            <ExperienceSkeleton />
+          ) : (
+            <div className="relative">
+              {/* Vertical line */}
+              <div className="absolute left-4 md:left-8 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-dark-border" />
 
-            {about.experience.map((exp, index) => (
-              <FadeInSection key={index} delay={index * 0.1}>
-                <motion.div
-                  className="relative pl-12 md:pl-20 pb-12 last:pb-0"
-                  whileHover={{ x: 4 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {/* Timeline dot */}
-                  <div className="absolute left-0 md:left-4 w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center shadow-lg">
-                    <Briefcase className="w-4 h-4 text-white" />
-                  </div>
-
-                  {/* Content card */}
-                  <div className="bg-white dark:bg-dark-card rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                        {exp.position}
-                      </h3>
-                      <span className="text-sm text-primary-600 dark:text-primary-400 font-medium">
-                        {exp.duration}
-                      </span>
+              {about?.experience?.map((exp, index) => (
+                <FadeInSection key={index} delay={index * 0.1}>
+                  <motion.div
+                    className="relative pl-12 md:pl-20 pb-12 last:pb-0"
+                    whileHover={{ x: 4 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {/* Timeline dot */}
+                    <div className="absolute left-0 md:left-4 w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center shadow-lg">
+                      <Briefcase className="w-4 h-4 text-white" />
                     </div>
-                    <p className="text-gray-600 dark:text-gray-400 font-medium mb-3">
-                      {exp.company}
-                    </p>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
-                      {exp.description}
-                    </p>
 
-                    {exp.achievements && exp.achievements.length > 0 && (
-                      <ul className="space-y-2">
-                        {exp.achievements.map((achievement, i) => (
-                          <li
-                            key={i}
-                            className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400"
-                          >
-                            <span className="text-primary-600 mt-1">•</span>
-                            {achievement}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                </motion.div>
-              </FadeInSection>
-            ))}
-          </div>
+                    {/* Content card */}
+                    <div className="bg-white dark:bg-dark-card rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                          {exp.position}
+                        </h3>
+                        <span className="text-sm text-primary-600 dark:text-primary-400 font-medium">
+                          {exp.duration}
+                        </span>
+                      </div>
+                      <p className="text-gray-600 dark:text-gray-400 font-medium mb-3">
+                        {exp.company}
+                      </p>
+                      <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
+                        {exp.description}
+                      </p>
+
+                      {exp.achievements && exp.achievements.length > 0 && (
+                        <ul className="space-y-2">
+                          {exp.achievements.map((achievement, i) => (
+                            <li
+                              key={i}
+                              className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400"
+                            >
+                              <span className="text-primary-600 mt-1">•</span>
+                              {achievement}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </motion.div>
+                </FadeInSection>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>
+  )
+}
+
+function ExperienceSkeleton() {
+  return (
+    <div className="relative">
+      <div className="absolute left-4 md:left-8 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-dark-border" />
+      {[1, 2, 3].map((i) => (
+        <div key={i} className="relative pl-12 md:pl-20 pb-12 last:pb-0">
+          <div className="absolute left-0 md:left-4 w-8 h-8 bg-gray-200 dark:bg-dark-border rounded-full animate-pulse" />
+          <div className="bg-white dark:bg-dark-card rounded-xl p-6 shadow-sm animate-pulse border border-gray-100 dark:border-dark-border">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+              <div className="h-6 bg-gray-200 dark:bg-dark-border rounded w-1/3 mb-2 sm:mb-0" />
+              <div className="h-4 bg-gray-200 dark:bg-dark-border rounded w-24" />
+            </div>
+            <div className="h-4 bg-gray-200 dark:bg-dark-border rounded w-1/4 mb-4" />
+            <div className="space-y-2 mb-4">
+              <div className="h-4 bg-gray-200 dark:bg-dark-border rounded" />
+              <div className="h-4 bg-gray-200 dark:bg-dark-border rounded w-5/6" />
+            </div>
+            <div className="space-y-2">
+              <div className="h-3 bg-gray-200 dark:bg-dark-border rounded w-3/4" />
+              <div className="h-3 bg-gray-200 dark:bg-dark-border rounded w-2/3" />
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
   )
 }

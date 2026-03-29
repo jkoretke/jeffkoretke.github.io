@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Moon, Sun, Github, Linkedin } from 'lucide-react'
 import { useTheme } from '@/hooks/useTheme'
@@ -19,12 +19,37 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const { isDark, toggle } = useTheme()
   const { data: about } = useAbout()
+  const location = useLocation()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault()
+    setIsOpen(false)
+
+    const [path, hash] = href.split('#')
+    
+    if (location.pathname !== path) {
+      // Explicitly navigate back if on a different page
+      navigate(href)
+    } else {
+      // If already on the page, update URL and smoothly scroll
+      window.history.pushState(null, '', href)
+      if (hash) {
+        const element = document.getElementById(hash)
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' })
+        }
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }
+    }
+  }
 
   return (
     <header
@@ -38,6 +63,7 @@ export function Header() {
         {/* Logo */}
         <Link
           to="/#home"
+          onClick={(e) => handleNavClick(e, '/#home')}
           className="text-xl font-bold text-gradient"
         >
           JK
@@ -46,13 +72,14 @@ export function Header() {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => (
-            <Link
+            <a
               key={link.href}
-              to={link.href}
-              className="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm font-medium"
+              href={link.href}
+              onClick={(e) => handleNavClick(e, link.href)}
+              className="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm font-medium cursor-pointer"
             >
               {link.label}
-            </Link>
+            </a>
           ))}
 
           <div className="flex items-center gap-2 ml-4">
@@ -109,14 +136,14 @@ export function Header() {
           >
             <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
               {navLinks.map((link) => (
-                <Link
+                <a
                   key={link.href}
-                  to={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className="text-lg text-gray-600 dark:text-gray-300 py-2"
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className="text-lg text-gray-600 dark:text-gray-300 py-2 cursor-pointer"
                 >
                   {link.label}
-                </Link>
+                </a>
               ))}
               <div className="flex items-center gap-4 pt-4 border-t border-gray-200 dark:border-dark-border">
                 <button
