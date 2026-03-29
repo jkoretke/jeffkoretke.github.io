@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Moon, Sun, Github, Linkedin } from 'lucide-react'
 import { useTheme } from '@/hooks/useTheme'
 import { useAbout } from '@/api/hooks/useAbout'
 
 const navLinks = [
-  { href: '#home', label: 'Home' },
-  { href: '#about', label: 'About' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#blog', label: 'Blog' },
-  { href: '#contact', label: 'Contact' },
+  { href: '/#home', label: 'Home' },
+  { href: '/#about', label: 'About' },
+  { href: '/#skills', label: 'Skills' },
+  { href: '/#experience', label: 'Experience' },
+  { href: '/#blog', label: 'Blog' },
+  { href: '/#contact', label: 'Contact' },
 ]
 
 export function Header() {
@@ -35,23 +36,23 @@ export function Header() {
     >
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
-        <a
-          href="#home"
+        <Link
+          to="/#home"
           className="text-xl font-bold text-gradient"
         >
           JK
-        </a>
+        </Link>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
-              href={link.href}
+              to={link.href}
               className="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors text-sm font-medium"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
 
           <div className="flex items-center gap-2 ml-4">
@@ -108,14 +109,14 @@ export function Header() {
           >
             <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.href}
-                  href={link.href}
+                  to={link.href}
                   onClick={() => setIsOpen(false)}
                   className="text-lg text-gray-600 dark:text-gray-300 py-2"
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
               <div className="flex items-center gap-4 pt-4 border-t border-gray-200 dark:border-dark-border">
                 <button

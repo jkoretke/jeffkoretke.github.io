@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { HelmetProvider, Helmet } from 'react-helmet-async'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+import { ScrollToTop } from '@/components/layout/ScrollToTop'
 import { Hero } from '@/components/sections/Hero'
 import { About } from '@/components/sections/About'
 import { Skills } from '@/components/sections/Skills'
@@ -22,16 +23,6 @@ const queryClient = new QueryClient({
 })
 
 function HomePage() {
-  useEffect(() => {
-    const { hash } = window.location
-    if (!hash) return
-    const timer = setTimeout(() => {
-      const el = document.querySelector(hash)
-      if (el) el.scrollIntoView({ behavior: 'smooth' })
-    }, 800)
-    return () => clearTimeout(timer)
-  }, [])
-
   return (
     <main className="flex-grow">
       <Helmet>
@@ -53,6 +44,7 @@ export default function App() {
     <HelmetProvider>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+        <ScrollToTop />
         <div className="min-h-screen flex flex-col">
           <Header />
           <Routes>
