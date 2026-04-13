@@ -1,0 +1,49 @@
+{
+  "ai": [
+    { "name": "Claude Code", "proficiency": "advanced", "yearsOfExperience": 1 },
+    { "name": "Gemini CLI", "proficiency": "advanced", "yearsOfExperience": 1 },
+    { "name": "Agentic Workflows", "proficiency": "advanced", "yearsOfExperience": 1 },
+    { "name": "Multi-Model Orchestration", "proficiency": "advanced", "yearsOfExperience": 1 },
+    { "name": "Prompt Engineering", "proficiency": "advanced", "yearsOfExperience": 2 }
+  ],
+  "languages": [
+    { "name": "Kotlin", "proficiency": "advanced", "yearsOfExperience": 8 },
+    "Java",
+    "JavaScript",
+    "Python",
+    "C",
+    "C++"
+  ],
+  "mobile": [
+    { "name": "Android SDK", "proficiency": "advanced", "yearsOfExperience": 8 },
+    { "name": "Jetpack Compose", "proficiency": "advanced", "yearsOfExperience": 4 },
+    { "name": "MVVM Architecture", "proficiency": "advanced", "yearsOfExperience": 6 },
+    { "name": "MVI Architecture", "proficiency": "advanced", "yearsOfExperience": 4 },
+    { "name": "Clean Architecture", "proficiency": "advanced", "yearsOfExperience": 6 },
+    { "name": "Coroutines", "proficiency": "advanced", "yearsOfExperience": 5 },
+    { "name": "Flow", "proficiency": "advanced", "yearsOfExperience": 4 },
+    { "name": "LiveData", "proficiency": "advanced", "yearsOfExperience": 6 },
+    { "name": "Retrofit", "proficiency": "advanced", "yearsOfExperience": 6 },
+    "Room Database",
+    "Dagger/Hilt"
+  ],
+  "backend": [
+    "Node.js",
+    "Express.js",
+    "REST APIs",
+    "SQL"
+  ],
+  "tools": [
+    { "name": "Git", "proficiency": "advanced", "yearsOfExperience": 8 },
+    { "name": "Android Studio", "proficiency": "advanced", "yearsOfExperience": 8 },
+    "VS Code",
+    "Figma",
+    "Postman",
+    "Firebase"
+  ],
+  "methodologies": [
+    "Agile/Scrum",
+    "Test-Driven Development",
+    "CI/CD"
+  ]
+}

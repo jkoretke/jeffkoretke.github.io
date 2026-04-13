@@ -1,22 +1,15 @@
 import { useQuery } from '@tanstack/react-query'
-import { apiClient } from '../client'
-import type { BlogPost, ApiResponse } from '../types'
-
-interface BlogListResponse {
-  success: boolean
-  data: BlogPost[]
-  count: number
-}
+import type { BlogPost } from '../types'
+import blogData from '../../data/blog.json'
 
 export function useBlogs() {
   return useQuery({
     queryKey: ['blogs'],
     queryFn: async () => {
-      const { data } = await apiClient.get<BlogListResponse>('/blog')
-      return data.data
+      return blogData as BlogPost[]
     },
-    staleTime: 5 * 60 * 1000,
-    gcTime: 30 * 60 * 1000,
+    staleTime: Infinity,
+    gcTime: Infinity,
   })
 }
 
@@ -24,11 +17,14 @@ export function useBlogPost(slug: string) {
   return useQuery({
     queryKey: ['blog', slug],
     queryFn: async () => {
-      const { data } = await apiClient.get<ApiResponse<BlogPost>>(`/blog/${slug}`)
-      return data.data
+      const post = (blogData as BlogPost[]).find(p => p.slug === slug)
+      if (!post) {
+        throw new Error('Blog post not found')
+      }
+      return post
     },
     enabled: !!slug,
-    staleTime: 5 * 60 * 1000,
-    gcTime: 30 * 60 * 1000,
+    staleTime: Infinity,
+    gcTime: Infinity,
   })
 }

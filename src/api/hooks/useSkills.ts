@@ -1,11 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import { apiClient } from '../client'
 import type { Skill, SkillCategory } from '../types'
-
-interface SkillsApiResponse {
-  success: boolean
-  data: Record<string, Skill[]>
-}
+import skillsData from '../../data/skills.json'
 
 export interface SkillsData {
   allSkills: Skill[]
@@ -17,26 +12,39 @@ export function useSkills() {
   return useQuery({
     queryKey: ['skills'],
     queryFn: async (): Promise<SkillsData> => {
-      const { data } = await apiClient.get<SkillsApiResponse>('/skills')
-
-      // API returns { data: { backend: [...], languages: [...], ... } }
-      const grouped = data.data as Record<SkillCategory, Skill[]>
+      // API used to return { data: { backend: [...], languages: [...], ... } }
+      // Our JSON matches that structure
+      const grouped = skillsData as Record<string, (string | Skill)[]>
       const categories = Object.keys(grouped) as SkillCategory[]
 
       // Flatten all skills into a single array with category info
       const allSkills: Skill[] = []
+      const processedGrouped: Record<SkillCategory, Skill[]> = {} as any
+
       for (const category of categories) {
-        for (const skill of grouped[category]) {
-          allSkills.push({ ...skill, category, _id: `${category}-${skill.name}` })
+        processedGrouped[category] = []
+        for (const item of grouped[category]) {
+          const skill: Skill = typeof item === 'string' 
+            ? { name: item, proficiency: 'intermediate', yearsOfExperience: 0 } as Skill
+            : item as Skill
+          
+          const enrichedSkill = { 
+            ...skill, 
+            category, 
+            _id: `${category}-${skill.name}` 
+          }
+          allSkills.push(enrichedSkill)
+          processedGrouped[category].push(enrichedSkill)
         }
       }
 
       return {
         allSkills,
-        groupedByCategory: grouped,
+        groupedByCategory: processedGrouped,
         categories,
       }
     },
-    staleTime: 5 * 60 * 1000,
+    staleTime: Infinity,
+    gcTime: Infinity,
   })
 }

@@ -35,22 +35,6 @@ export function Hero() {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Profile Image */}
-          {about?.profileImage && (
-            <motion.div
-              initial={{ scale: 0, rotate: -180 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ type: 'spring', duration: 1, bounce: 0.4 }}
-              className="mb-8"
-            >
-              <img
-                src={about.profileImage}
-                alt={about.name}
-                className="w-32 h-32 md:w-40 md:h-40 rounded-full mx-auto border-4 border-white dark:border-dark-card shadow-2xl object-cover"
-              />
-            </motion.div>
-          )}
-
           {/* Name */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -111,6 +95,7 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
+            className="mb-12"
           >
             <a
               href="#contact"
@@ -119,18 +104,22 @@ export function Hero() {
               Get In Touch
             </a>
           </motion.div>
-        </div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <a href="#about" aria-label="Scroll to about section">
-            <ArrowDown className="w-6 h-6 text-gray-400" />
-          </a>
-        </motion.div>
+          {/* Scroll indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ y: [0, 10, 0], opacity: 1 }}
+            transition={{ 
+              y: { duration: 2, repeat: Infinity, ease: 'easeInOut' },
+              opacity: { delay: 1, duration: 0.5 }
+            }}
+            className="flex justify-center"
+          >
+            <a href="#about" aria-label="Scroll to about section">
+              <ArrowDown className="w-6 h-6 text-gray-400" />
+            </a>
+          </motion.div>
+        </div>
       </div>
     </section>
   )
